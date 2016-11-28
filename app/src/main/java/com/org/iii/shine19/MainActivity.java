@@ -6,7 +6,9 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.media.MediaPlayer;
+import android.media.MediaRecorder;
 import android.net.Uri;
+import android.os.Environment;
 import android.provider.MediaStore;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
@@ -15,9 +17,13 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 
+import java.io.File;
+
 public class MainActivity extends AppCompatActivity {
     private MediaPlayer mp;
     private String strPlayMusic;
+    private MediaRecorder mr;
+    private File sdroot;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,15 +39,18 @@ public class MainActivity extends AppCompatActivity {
                             Manifest.permission.WRITE_EXTERNAL_STORAGE},
                     123);
         }
+        sdroot = Environment.getExternalStorageDirectory();
 
     }
-
+    
+    //使用外部錄音
     public void b1(View v){
         Intent intent =
                 new Intent(MediaStore.Audio.Media.RECORD_SOUND_ACTION);
         startActivityForResult(intent, 1);
     }
 
+    //播放外部的
     public void b2(View v){
         if (strPlayMusic == null) return;
 
@@ -63,6 +72,44 @@ public class MainActivity extends AppCompatActivity {
             //真實路徑
             //Log.v("shine", getRealPathFromURI(uri));
             strPlayMusic = getRealPathFromURI(uri);
+        }
+    }
+
+    //錄音
+    public void b3(View v) {
+        mr = new MediaRecorder();
+        mr.setAudioSource(MediaRecorder.AudioSource.MIC);
+        mr.setOutputFormat(MediaRecorder.OutputFormat.THREE_GPP);
+        mr.setAudioEncoder(MediaRecorder.AudioEncoder.DEFAULT);
+        mr.setOutputFile(sdroot.getAbsolutePath() + "/shine.3gp");
+
+
+        try {
+            mr.prepare();
+            mr.start();
+        }catch (Exception ee){
+            Log.v("shine", ee.toString());
+        }
+    }
+
+    //暫停
+    public void b4(View v){
+        if (mr!=null){
+            mr.stop();
+            mr.release();
+            mr = null;
+        }
+    }
+
+    //播放
+    public void b5(View v){
+        try {
+            mp = new MediaPlayer();
+            mp.setDataSource(sdroot.getAbsolutePath() + "/shine.3gp");
+            mp.prepare();
+            mp.start();
+        }catch(Exception e){
+            Log.v("shine", e.toString());
         }
     }
 

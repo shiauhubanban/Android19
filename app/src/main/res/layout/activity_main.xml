@@ -27,6 +27,11 @@
         android:layout_height="wrap_content"
         android:onClick="b4"
         android:text="B4" />
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:onClick="b5"
+        android:text="B5" />
 
     <TextView
         android:layout_width="wrap_content"
