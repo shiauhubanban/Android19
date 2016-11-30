@@ -45,6 +45,7 @@ public class MainActivity extends AppCompatActivity {
     
     //使用外部錄音
     public void b1(View v){
+        //Intent https://developer.android.com/guide/components/intents-filters.html
         Intent intent =
                 new Intent(MediaStore.Audio.Media.RECORD_SOUND_ACTION);
         startActivityForResult(intent, 1);
@@ -64,6 +65,7 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+    //https://mengzn.gitbooks.io/android-basicteaching/content/onactivityresult.html
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -112,7 +114,8 @@ public class MainActivity extends AppCompatActivity {
             Log.v("shine", e.toString());
         }
     }
-
+    
+    //真實路徑
     public String getRealPathFromURI(Uri contentUri) {
         ContentResolver re = getContentResolver();
         String[] proj = { MediaStore.Audio.Media.DATA };
