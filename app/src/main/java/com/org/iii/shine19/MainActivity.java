@@ -39,7 +39,7 @@ public class MainActivity extends AppCompatActivity {
                             Manifest.permission.WRITE_EXTERNAL_STORAGE},
                     123);
         }
-        sdroot = Environment.getExternalStorageDirectory();
+        sdroot = Environment.getExternalStorageDirectory(); ////得到根目錄
 
     }
     
