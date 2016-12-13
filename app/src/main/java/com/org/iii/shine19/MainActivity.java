@@ -39,7 +39,7 @@ public class MainActivity extends AppCompatActivity {
                             Manifest.permission.WRITE_EXTERNAL_STORAGE},
                     123);
         }
-        sdroot = Environment.getExternalStorageDirectory(); ////得到根目錄
+        sdroot = Environment.getExternalStorageDirectory(); //得到根目錄
 
     }
     
@@ -48,7 +48,10 @@ public class MainActivity extends AppCompatActivity {
         //Intent https://developer.android.com/guide/components/intents-filters.html
         Intent intent =
                 new Intent(MediaStore.Audio.Media.RECORD_SOUND_ACTION);
-        startActivityForResult(intent, 1);
+        startActivityForResult(intent, 1); //轉跳的Activity
+
+        //如果想要讓一個Activity跳到另外一個Activity的話, 就可以使用Intent,
+        //設定好要轉跳的Activity, 然後利用startActivity或者startActivityForResult來執行。
     }
 
     //播放外部的
@@ -66,6 +69,8 @@ public class MainActivity extends AppCompatActivity {
     }
 
     //https://mengzn.gitbooks.io/android-basicteaching/content/onactivityresult.html
+    //在一個主界面(主Activity)上能連接往許多不同子功能模塊(子Activity上去)，
+    //當子模塊的事情做完之後就回到主界面，或許還同時返回一些子模塊完成的數據交給主Activity處理。這樣的數據交流就要用到回調函數onActivityResult
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
